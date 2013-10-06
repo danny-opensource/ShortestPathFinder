@@ -1,4 +1,5 @@
 package graphs.my;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,6 +16,7 @@ import java.util.Map;
 public class Graph {
 
 	private Map<Node, LinkedList<Node>> adjList;
+	private List<graphs.my.Node> vertices;
 
 	/**
 	 * Construct the Graph
@@ -43,11 +45,21 @@ public class Graph {
 	}
 
 	/**
+	 * Return the vertices list
+	 * 
+	 * @return vertices
+	 */
+	public List<Node> getVertices() {
+		return vertices;
+	}
+
+	/**
 	 * Set the vertices
 	 * 
 	 * @param nodeList
 	 */
 	public void setVertices(final List<Node> nodeList) {
+		vertices = nodeList;
 		final Iterator<Node> nodeListIterator = nodeList.iterator();
 		while (nodeListIterator.hasNext()) {
 			adjList.put(nodeListIterator.next(), new LinkedList<Node>());
