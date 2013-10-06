@@ -24,6 +24,7 @@ public class BFS {
 	 * @param vertex
 	 */
 	public void performBFS(Graph g, int vertex) {
+		adjList = g.getAdjacencyList();
 		final Node s = g.getNode(vertex);
 		s.setColor(1);
 		s.distance = 0;
@@ -31,16 +32,12 @@ public class BFS {
 
 		actingQ.add(s);
 		while (!actingQ.isEmpty()) {
-			printQ();
 			final Node u = actingQ.poll();
 			u.setColor(1);
-			System.out.println();
-			System.out.println("u color is: " + u.getColor());
 			final LinkedList<Node> adjNodes = adjList.get(u);
 			final Iterator<Node> adjNodesIterator = adjNodes.iterator();
 			while (adjNodesIterator.hasNext()) {
 				final Node v = adjNodesIterator.next();
-				System.out.println("v is: " + v);
 				if (v.color == 0) {
 					v.setColor(1);
 					v.distance = u.distance + 1;
@@ -129,15 +126,15 @@ public class BFS {
 		nodeEdges.add(fourthNode);
 		nodeEdges.add(seventhNode);
 
-		bfs.adjList = g.getAdjacencyList();
+		
 		bfs.performBFS(g, 2);
 
-		final Iterator<Node> checkIt = bfs.adjList.keySet().iterator();
+	/*	final Iterator<Node> checkIt = bfs.adjList.keySet().iterator();
 		while (checkIt.hasNext()) {
 			final Node n = checkIt.next();
 			System.out.println("Node: " + n.getId() + " -> Color: "
 					+ n.getColor());
-		}
+		}*/
 
 	}
 

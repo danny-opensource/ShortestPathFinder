@@ -24,6 +24,66 @@ public class Graph {
 	public Graph() {
 		adjList = new HashMap<Node, LinkedList<Node>>();
 	}
+	
+	
+	public static Graph createSampleGraphForTest() {
+
+		Node first = new Node(1);
+		Node second = new Node(2);
+		Node third = new Node(3);
+		Node fourth = new Node(4);
+		Node fifth = new Node(5);
+		Node sixth = new Node(6);
+		Node seventh = new Node(7);
+		Node eigth = new Node(8);
+		List<Node> vertices = new ArrayList<Node>();
+		vertices.add(first);
+		vertices.add(second);
+		vertices.add(third);
+		vertices.add(fourth);
+		vertices.add(fifth);
+		vertices.add(sixth);
+		vertices.add(seventh);
+		vertices.add(eigth);
+
+		Graph newGraph = new Graph();
+		newGraph.setVertices(vertices);
+
+		List<Node> edges = null;
+
+		edges = newGraph.getEdges(first);
+		edges.add(fifth);
+		edges.add(second);
+
+		edges = newGraph.getEdges(second);
+		edges.add(first);
+		edges.add(sixth);
+
+		edges = newGraph.getEdges(third);
+		edges.add(sixth);
+		edges.add(fourth);
+
+		edges = newGraph.getEdges(fourth);
+		edges.add(third);
+		edges.add(eigth);
+
+		edges = newGraph.getEdges(fifth);
+		edges.add(first);
+
+		edges = newGraph.getEdges(sixth);
+		edges.add(second);
+		edges.add(third);
+		edges.add(seventh);
+
+		edges = newGraph.getEdges(seventh);
+		edges.add(sixth);
+		edges.add(eigth);
+
+		edges = newGraph.getEdges(eigth);
+		edges.add(fourth);
+		edges.add(seventh);
+		return newGraph;
+	}
 
 	/**
 	 * Return the noce for the vertex. Mostly, should not be used. Node must be
