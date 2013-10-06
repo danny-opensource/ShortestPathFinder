@@ -1,3 +1,4 @@
+package graphs.my;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -5,13 +6,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+/**
+ * BFS.java
+ * @author Git id: madan1988 (Madan Gopal)
+ * 
+ */
 public class BFS {
 
 	private Map<Node, LinkedList<Node>> adjList;
 	Queue<Node> actingQ = new LinkedList<Node>();
 
+	/**
+	 * Perform BFS using this function. Pass the graph and the vertex (int
+	 * variant)
+	 * 
+	 * @param g
+	 * @param vertex
+	 */
 	public void performBFS(Graph g, int vertex) {
-		Node s = g.getNode(vertex);
+		final Node s = g.getNode(vertex);
 		s.setColor(1);
 		s.distance = 0;
 		s.predecessor = null;
@@ -19,14 +32,14 @@ public class BFS {
 		actingQ.add(s);
 		while (!actingQ.isEmpty()) {
 			printQ();
-			Node u = actingQ.poll();
+			final Node u = actingQ.poll();
 			u.setColor(1);
 			System.out.println();
 			System.out.println("u color is: " + u.getColor());
-			LinkedList<Node> adjNodes = adjList.get(u);
-			Iterator adjNodesIterator = adjNodes.iterator();
+			final LinkedList<Node> adjNodes = adjList.get(u);
+			final Iterator<Node> adjNodesIterator = adjNodes.iterator();
 			while (adjNodesIterator.hasNext()) {
-				Node v = (Node) adjNodesIterator.next();
+				final Node v = adjNodesIterator.next();
 				System.out.println("v is: " + v);
 				if (v.color == 0) {
 					v.setColor(1);
@@ -40,29 +53,37 @@ public class BFS {
 
 	}
 
+	/**
+	 * Print the Active Queue at a point-in-time
+	 */
 	private void printQ() {
 		System.out.println("Printing Q...");
-		Iterator it = actingQ.iterator();
+		final Iterator<Node> it = actingQ.iterator();
 		while (it.hasNext()) {
 			System.out.print(it.next() + " ");
 		}
 		System.err.println();
 	}
 
+	/**
+	 * Perform tests using main
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		BFS bfs = new BFS();
-		Graph g = new Graph();
+		final BFS bfs = new BFS();
+		final Graph g = new Graph();
 
-		List<Node> nodeList = new ArrayList<Node>();
+		final List<Node> nodeList = new ArrayList<Node>();
 
-		Node firstNode = new Node(1);
-		Node secondNode = new Node(2);
-		Node thirdNode = new Node(3);
-		Node fourthNode = new Node(4);
-		Node fifthNode = new Node(5);
-		Node sixthNode = new Node(6);
-		Node seventhNode = new Node(7);
-		Node eigthNode = new Node(8);
+		final Node firstNode = new Node(1);
+		final Node secondNode = new Node(2);
+		final Node thirdNode = new Node(3);
+		final Node fourthNode = new Node(4);
+		final Node fifthNode = new Node(5);
+		final Node sixthNode = new Node(6);
+		final Node seventhNode = new Node(7);
+		final Node eigthNode = new Node(8);
 		nodeList.add(firstNode);
 		nodeList.add(secondNode);
 		nodeList.add(thirdNode);
@@ -109,12 +130,12 @@ public class BFS {
 
 		bfs.adjList = g.getAdjacencyList();
 		bfs.performBFS(g, 2);
-		
-		Iterator checkIt = bfs.adjList.keySet().iterator();
-		while(checkIt.hasNext())
-		{
-			Node n = (Node) checkIt.next();
-			System.out.println("Node: " + n.getId() + " -> Color: " + n.getColor());
+
+		final Iterator<Node> checkIt = bfs.adjList.keySet().iterator();
+		while (checkIt.hasNext()) {
+			final Node n = checkIt.next();
+			System.out.println("Node: " + n.getId() + " -> Color: "
+					+ n.getColor());
 		}
 
 	}
