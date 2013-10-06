@@ -2,40 +2,54 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 
 public class Graph {
 
-	private Map<Integer, LinkedList> adjList;
+	private Map<Node, LinkedList<Node>> adjList;
 
 	public Graph() {
-		adjList = new HashMap<Integer, LinkedList>();
+		adjList = new HashMap<Node, LinkedList<Node>>();
 	}
 
 	private void addVertex(int vertex) {
 		if (adjList != null) {
-			adjList.put(vertex, new LinkedList());
+			adjList.put(new Node(vertex), new LinkedList<Node>());
 		}
 
 	}
 
 	private void addEdge(int vertex, int edge) {
 		if (adjList != null) {
-			adjList.get(vertex).add(edge);
+			adjList.get(getNode(vertex)).add(new Node(edge));
 		}
+	}
+
+	private Node getNode(int vertex) {
+		Set<Node> adjNodes = adjList.keySet();
+
+		Iterator it = adjList.keySet().iterator();
+		while (it.hasNext()) {
+			Node n = (Node) it.next();
+			if (n.getId() == vertex) {
+				return n;
+			}
+		}
+		return null;
 	}
 
 	private void printAdjacencyList() {
 		Iterator it = adjList.keySet().iterator();
 		while (it.hasNext()) {
-			int vertex = (Integer) it.next();
-			System.out.print(vertex + ": ");
+			Node vertex = (Node) it.next();
+			System.out.print(vertex.getId() + ": ");
 			LinkedList neighbours = adjList.get(vertex);
 			Iterator edgeIterator = neighbours.iterator();
 			while (edgeIterator.hasNext()) {
-				System.out.print(" -> " + edgeIterator.next());
+				Node edge = (Node) edgeIterator.next();
+				System.out.print(" -> " + edge.getId());
 			}
 			System.out.println();
-
 		}
 	}
 
