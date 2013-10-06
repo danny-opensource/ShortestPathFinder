@@ -32,6 +32,10 @@ public class Graph {
 	private void printAdjacencyList()
 	{
 		Iterator it = adjList.keySet().iterator();
+		while(it.hasNext())
+		{
+			
+		}
 	}
 	
 	public static void main(String[] args) {
