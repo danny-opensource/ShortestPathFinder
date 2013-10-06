@@ -1,6 +1,8 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,20 +14,20 @@ public class Graph {
 		adjList = new HashMap<Node, LinkedList<Node>>();
 	}
 
-	private void addVertex(int vertex) {
+	public void addVertex(int vertex) {
 		if (adjList != null) {
 			adjList.put(new Node(vertex), new LinkedList<Node>());
 		}
 
 	}
 
-	private void addEdge(int vertex, int edge) {
+	public void addEdge(int vertex, int edge) {
 		if (adjList != null) {
 			adjList.get(getNode(vertex)).add(new Node(edge));
 		}
 	}
 
-	private Node getNode(int vertex) {
+	public Node getNode(int vertex) {
 		Set<Node> adjNodes = adjList.keySet();
 
 		Iterator it = adjList.keySet().iterator();
@@ -38,43 +40,73 @@ public class Graph {
 		return null;
 	}
 
-	private void printAdjacencyList() {
+	public void setVertices(List<Node> nodeList) {
+		Iterator nodeListIterator = nodeList.iterator();
+		while (nodeListIterator.hasNext()) {
+			adjList.put((Node) nodeListIterator.next(), new LinkedList<Node>());
+		}
+	}
+
+	public void printAdjacencyList() {
 		Iterator it = adjList.keySet().iterator();
 		while (it.hasNext()) {
 			Node vertex = (Node) it.next();
-			System.out.print(vertex.getId() + ": ");
+			System.out.print(vertex + ": ");
 			LinkedList neighbours = adjList.get(vertex);
 			Iterator edgeIterator = neighbours.iterator();
 			while (edgeIterator.hasNext()) {
 				Node edge = (Node) edgeIterator.next();
-				System.out.print(" -> " + edge.getId());
+				System.out.print(" -> " + edge);
 			}
 			System.out.println();
 		}
 	}
 
+	public LinkedList<Node> getEdges(Node node) {
+		return adjList.get(node);
+	}
+
+	public Map<Node, LinkedList<Node>> getAdjacencyList() {
+		return adjList;
+	}
+
 	public static void main(String[] args) {
 
 		Graph g = new Graph();
-		g.addVertex(1);
-		g.addVertex(2);
-		g.addVertex(3);
-		g.addVertex(4);
-		g.addVertex(5);
-		g.addEdge(1, 2);
-		g.addEdge(1, 5);
-		g.addEdge(2, 1);
-		g.addEdge(2, 5);
-		g.addEdge(2, 3);
-		g.addEdge(2, 4);
-		g.addEdge(3, 2);
-		g.addEdge(3, 4);
-		g.addEdge(4, 2);
-		g.addEdge(4, 5);
-		g.addEdge(4, 3);
-		g.addEdge(5, 4);
-		g.addEdge(5, 1);
-		g.addEdge(5, 2);
+
+		List<Node> nodeList = new ArrayList<Node>();
+
+		Node firstNode = new Node(1);
+		Node secondNode = new Node(2);
+		Node thirdNode = new Node(3);
+		Node fourthNode = new Node(4);
+		Node fifthNode = new Node(5);
+		nodeList.add(firstNode);
+		nodeList.add(secondNode);
+		nodeList.add(thirdNode);
+		nodeList.add(fourthNode);
+		nodeList.add(fifthNode);
+		g.setVertices(nodeList);
+
+		LinkedList<Node> firstNodeEdges = g.getEdges(firstNode);
+		firstNodeEdges.add(thirdNode);
+		firstNodeEdges.add(fourthNode);
+
+		LinkedList<Node> secondNodeEdges = g.getEdges(secondNode);
+		secondNodeEdges.add(thirdNode);
+		secondNodeEdges.add(fourthNode);
+		secondNodeEdges.add(fifthNode);
+
+		LinkedList<Node> thirdNodeEdges = g.getEdges(thirdNode);
+		thirdNodeEdges.add(firstNode);
+		thirdNodeEdges.add(secondNode);
+
+		LinkedList<Node> fourthNodeEdges = g.getEdges(fourthNode);
+		fourthNodeEdges.add(firstNode);
+		fourthNodeEdges.add(secondNode);
+
+		LinkedList<Node> fifthNodeEdges = g.getEdges(fifthNode);
+		fifthNodeEdges.add(secondNode);
 		g.printAdjacencyList();
 
 	}
